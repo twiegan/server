@@ -3,8 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Menu</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script defer src="/static/menu-scripts.js"></script>
 </head>
 <body>
-    <h1>{{ username }}</h1>
+
+  <main id="main-holder">
+    <h1 id="login-header">{{ username }}</h1>
+
+    <form id="login-form">
+      <input type="submit" value="Start Game" id="menu-form-submit">
+    </form>
+  </main>
+
 </body>
 </html>

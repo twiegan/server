@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script defer src="/static/game-scripts.js"></script>
+</head>
+<body>
+
+  <main id="main-holder">
+      <h1 id="position-tracker">{{ position }}</h1>
+    <p id="login-header">
+        {% if extra %}
+      <p><b>{{ extra }}</b></p>
+        {% else %}
+            Welcome to the game. <br>
+            Press 'continue' below to progress through the story.<br>
+        {% endif %}
+    </p>
+
+    <form>
+        <input type="submit" value="Continue" id="continue-button">
+    </form>
+  </main>
+
+</body>
+</html>
