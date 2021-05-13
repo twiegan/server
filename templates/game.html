@@ -2,25 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Game</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title id="user">{{ username }}</title>
+    <link rel="stylesheet" href="/static/game-style.css">
     <script defer src="/static/game-scripts.js"></script>
 </head>
 <body>
 
   <main id="main-holder">
-      <h1 id="position-tracker">{{ position }}</h1>
-    <p id="login-header">
+    <h1 id="position-tracker">{{ position }}</h1>
+    <div id="game-text">
         {% if extra %}
       <p><b>{{ extra }}</b></p>
         {% else %}
             Welcome to the game. <br>
             Press 'continue' below to progress through the story.<br>
         {% endif %}
-    </p>
+    </div>
 
-    <form>
-        <input type="submit" value="Continue" id="continue-button">
+    <form id="game-form">
+      <div class="button-holder">
+        <input type="submit" value="Inventory" id="button-holder-inventory" class="game-form-field">
+        <input type="submit" value="Map" id="button-holder-map" class="game-form-field">
+        <input type="submit" value="Stats" id="button-holder-stats" class="game-form-field">
+      </div>
+      <input type="submit" value="Continue" id="continue-button" class="game-form-field">
     </form>
   </main>
 

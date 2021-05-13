@@ -80,7 +80,7 @@ body {
   outline: none;
 }
 
-#menu-form-submit {
+#new-game-submit {
   width: 100%;
   padding: 7px;
   border: none;
@@ -92,7 +92,7 @@ body {
   outline: none;
 }
 
-#continue-button {
+#resume-game-submit {
   width: 100%;
   padding: 7px;
   border: none;
