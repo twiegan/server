@@ -1,6 +1,7 @@
 import flask as fs
 from flask import request
 from test import *
+from game import *
 
 
 app = fs.Flask(__name__, template_folder='templates')
@@ -36,7 +37,7 @@ def game_inventory(username=None, position=None):
 
 @app.route('/<username>/game/<position>/map')
 def game_map(username=None, position=None):
-    return fs.render_template('map.html', username=username, position=position)
+    return fs.render_template('map.html', username=username, position=position, player_map=generate_map())
 
 
 @app.route('/<username>/game/<position>/stats')

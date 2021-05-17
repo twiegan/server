@@ -43,54 +43,7 @@ body {
   display: inline;
 }
 
-#continue-button {
-  width: 100%;
-  padding: 7px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-weight: bold;
-  background-color: #3a3a3a;
-  cursor: pointer;
-  outline: none;
-  display: inline;
-}
-
-#button-holder-inventory {
-  padding: 7px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-weight: bold;
-  background-color: #3a3a3a;
-  cursor: pointer;
-  outline: none;
-}
-
-#button-holder-map {
-  padding: 7px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-weight: bold;
-  background-color: #3a3a3a;
-  cursor: pointer;
-  outline: none;
-}
-
-#button-holder-stats {
-  padding: 7px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-weight: bold;
-  background-color: #3a3a3a;
-  cursor: pointer;
-  outline: none;
-}
-
-#back-button {
-  width: 100%;
+input[type="submit"] {
   padding: 7px;
   border: none;
   border-radius: 5px;

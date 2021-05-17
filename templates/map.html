@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <title id="user">{{ username }}</title>
     <link rel="stylesheet" href="/static/game-style.css">
-    <script defer src="/static/game-scripts.js"></script>
+    <script defer src="/static/info-screen-scripts.js"></script>
 </head>
 <body>
 <main id="main-holder">
-    <h1 id="position-tracker">{{ position }}</h1>
-    <div id="map-text">
-        <p>map goes here</p>
-    </div>
+    <h1 id="position-tracker">{{position}}</h1>
+    <table id="map-table">
+        {%for item in player_map%}
+        <tr><td>{{item}}</td></tr>
+        {%endfor%}
+    </table>
 
     <form id="game-form">
-      <input type="submit" value="Back" id="continue-button" class="game-form-field">
+      <input type="submit" value="Back" id="back-button" class="game-form-field">
     </form>
   </main>
 </body>
