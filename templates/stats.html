@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title id="user">{{ username }}</title>
-    <link rel="stylesheet" href="/static/game-style.css">
-    <script defer src="/static/info-screen-scripts.js"></script>
-</head>
-<body>
-<main id="main-holder">
-    <h1 id="position-tracker">{{ position }}</h1>
+{% extends 'info-screen-base.html' %}
+
+{% block content %}
+
     <div id="stats-text">
         <p>stats go here</p>
     </div>
 
-    <form id="game-form">
-      <input type="submit" value="Back" id="back-button" class="game-form-field">
-    </form>
-  </main>
-</body>
-</html>
+{% endblock %}

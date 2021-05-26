@@ -1,35 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title id="user">{{ username }}</title>
     <link rel="stylesheet" href="/static/game-style.css">
     <script defer src="/static/game-scripts.js"></script>
 </head>
+
 <body>
 
   <main id="main-holder">
-    <h1 id="position-tracker">{{ position }}</h1>
-    <div id="game-text">
+    <div id="game-content">
+      <div id="game-text">
+      <textarea id=text-area rows="25" cols="75" disabled="disabled" style="resize: none">
         {% if extra %}
-      <p><b>{{ extra }}</b></p>
+          {{ extra }}
         {% else %}
-            Welcome to the game. <br>
-            Press 'continue' below to progress through the story.<br>
+          Welcome to the game. <br>
+          Press 'continue' below to progress through the story.<br>
         {% endif %}
+      </textarea>
+      </div>
+
+      <div id="game-info">
+        <p id="other">Inventory </p>
+      </div>
     </div>
+
 
     <form id="game-form">
       <div class="button-holder">
-        <input type="submit" value="Inventory" id="button-holder-inventory" class="game-form-field">
-        <input type="submit" value="Map" id="button-holder-map" class="game-form-field">
-        <input type="submit" value="Stats" id="button-holder-stats" class="game-form-field">
+        <input type="button" value="Inventory" id="button-holder-inventory" class="game-form-field" onclick="showInventory()">
+        <input type="button" value="Map" id="button-holder-map" class="game-form-field" onclick="showMap()">
+        <input type="button" value="Stats" id="button-holder-stats" class="game-form-field" onclick="showStats()">
       </div>
-      <input type="submit" value="North" id="north-button" class="game-form-field">
+      <input type="button" value="North" id="north-button" class="game-form-field" onclick="moveNorth()">
       <div class="button-holder">
-        <input type="submit" value="West" id="west-button" class="game-form-field">
-        <input type="submit" value="South" id="south-button" class="game-form-field">
-        <input type="submit" value="East" id="east-button" class="game-form-field">
+        <input type="button" value="West" id="west-button" class="game-form-field" onclick="moveWest()">
+        <input type="button" value="South" id="south-button" class="game-form-field" onclick="moveSouth()">
+        <input type="button" value="East" id="east-button" class="game-form-field" onclick="moveEast()">
       </div>
     </form>
   </main>

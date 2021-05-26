@@ -1,5 +1,6 @@
-const positionTracker = document.getElementById("position-tracker");
+const textArea = document.getElementById("text-area");
 const user = document.getElementById("user");
+const infoArea = document.getElementById("game-info");
 const inventoryButton = document.getElementById("button-holder-inventory");
 const mapButton = document.getElementById("button-holder-map");
 const statsButton = document.getElementById("button-holder-stats");
@@ -9,61 +10,77 @@ const southButton = document.getElementById("south-button");
 const westButton = document.getElementById("west-button");
 
 // Info Screen Buttons
-inventoryButton.addEventListener("click", (e) => {
-    e.preventDefault();
+function showInventory() {
+    /*
     const position = parseInt(positionTracker.textContent);
     const username = user.textContent;
     location.replace( "/" + username + "/game/" + position + "/inventory");
-});
 
-mapButton.addEventListener("click", (e) => {
-    e.preventDefault();
+     */
+    let inventory = '<table id="inventory-table">' +
+                        '<tr><td>1</td></tr>' +
+                        '<tr><td>2</td></tr>' +
+                        '<tr><td>3</td></tr>' +
+                        '<tr><td>|4|</td></tr>' +
+                     '</table>';
+    infoArea.innerHTML = inventory;
+}
+
+function showMap() {
+    /*
     const position = parseInt(positionTracker.textContent);
     const username = user.textContent;
     location.replace( "/" + username + "/game/" + position + "/map");
-});
+    */
+    let map = '<table id="map-table">' +
+                '<tr><td>|@@@@|</td></tr>' +
+                '<tr><td>|%%%%|</td></tr>' +
+                '<tr><td>|^^^^|</td></tr>' +
+                '<tr><td>|0000|</td></tr>' +
+              '</table>';
+    infoArea.innerHTML = map;
+}
 
-statsButton.addEventListener("click", (e) => {
-    e.preventDefault();
+function showStats() {
+    /*
     const position = parseInt(positionTracker.textContent);
     const username = user.textContent;
     location.replace( "/" + username + "/game/" + position + "/stats");
-});
+
+     */
+    let stats = '<table id="stats-table">' +
+                    '<tr><td>1s</td></tr>' +
+                    '<tr><td>2s</td></tr>' +
+                    '<tr><td>3s</td></tr>' +
+                    '<tr><td>4s</td></tr>' +
+                '</table>';
+    infoArea.innerHTML = stats;
+}
 
 // Movement Buttons
-northButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    const position = parseInt(positionTracker.textContent);
-    const username = user.textContent;
-    location.replace("/" + username + "/game/" + (position+1));
-});
+function moveNorth() {
+    textArea.innerHTML += 'Moved North\n';
+    textArea.scrollTop = textArea.scrollHeight;
+}
 
-eastButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    const position = parseInt(positionTracker.textContent);
-    const username = user.textContent;
-    location.replace("/" + username + "/game/" + (position+1));
-});
+function moveEast() {
+    textArea.innerHTML += 'Moved East\n';
+    textArea.scrollTop = textArea.scrollHeight;
+}
 
-southButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    const position = parseInt(positionTracker.textContent);
-    const username = user.textContent;
-    location.replace("/" + username + "/game/" + (position+1));
-});
+function moveSouth() {
+    textArea.innerHTML += 'Moved South\n';
+    textArea.scrollTop = textArea.scrollHeight;
+}
 
-westButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    const position = parseInt(positionTracker.textContent);
-    const username = user.textContent;
-    location.replace("/" + username + "/game/" + (position+1));
-});
+function moveWest() {
+    textArea.innerHTML += 'Moved West\n';
+    textArea.scrollTop = textArea.scrollHeight;
+}
 
 // Keybindings
 document.addEventListener('keydown', function(e) {
     e.preventDefault();
-    const position = parseInt(positionTracker.textContent);
-    const username = user.textContent;
     if(e.key === 'ArrowUp' || e.code === 'ArrowUp') {
         northButton.click();
     }
