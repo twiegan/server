@@ -1,3 +1,5 @@
+import json
+
 MAX_CURR_TEAM = 3
 
 
@@ -41,6 +43,9 @@ class Player(Character):
         f'inventory: {self.inventory}\n'
         f'curr_team: {self.curr_team}\n'
         f'full_team: {self.full_team}\n'
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
 class NonPlayer(Character):

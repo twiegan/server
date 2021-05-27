@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title id="user">{{ username }}</title>
+    <title id="user">Game</title>
     <link rel="stylesheet" href="/static/game-style.css">
     <script defer src="/static/game-scripts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -14,17 +15,12 @@
     <div id="game-content">
       <div id="game-text">
       <textarea id=text-area rows="25" cols="75" disabled="disabled" style="resize: none">
-        {% if extra %}
-          {{ extra }}
-        {% else %}
-          Welcome to the game. <br>
-          Press 'continue' below to progress through the story.<br>
-        {% endif %}
+        Hello
       </textarea>
       </div>
 
       <div id="game-info">
-        <p id="other">Inventory </p>
+        <p id="other">Default </p>
       </div>
     </div>
 

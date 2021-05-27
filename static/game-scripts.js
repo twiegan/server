@@ -11,50 +11,74 @@ const westButton = document.getElementById("west-button");
 
 // Info Screen Buttons
 function showInventory() {
-    /*
-    const position = parseInt(positionTracker.textContent);
-    const username = user.textContent;
-    location.replace( "/" + username + "/game/" + position + "/inventory");
-
-     */
-    let inventory = '<table id="inventory-table">' +
-                        '<tr><td>1</td></tr>' +
-                        '<tr><td>2</td></tr>' +
-                        '<tr><td>3</td></tr>' +
-                        '<tr><td>|4|</td></tr>' +
-                     '</table>';
-    infoArea.innerHTML = inventory;
+    fetch('/inventory', {
+        body: JSON.stringify({
+            inventory: true,
+            map: false,
+            stats: false
+        }),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        method: 'post'
+    }).then(response => response.json(), err => {throw err}).then(response => {
+        console.log(response)
+        if (Object.keys(response).length === 0) {
+            infoArea.innerHTML = "No items";
+        } else {
+            infoArea.innerHTML = response;
+        }
+    })
 }
 
 function showMap() {
-    /*
-    const position = parseInt(positionTracker.textContent);
-    const username = user.textContent;
-    location.replace( "/" + username + "/game/" + position + "/map");
-    */
-    let map = '<table id="map-table">' +
-                '<tr><td>|@@@@|</td></tr>' +
-                '<tr><td>|%%%%|</td></tr>' +
-                '<tr><td>|^^^^|</td></tr>' +
-                '<tr><td>|0000|</td></tr>' +
-              '</table>';
-    infoArea.innerHTML = map;
+   fetch('/map', {
+        body: JSON.stringify({
+            inventory: false,
+            map: true,
+            stats: false
+        }),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        method: 'post'
+    }).then(response => response.json(), err => {throw err}).then(response => {
+        let i;
+        let j;
+        let toPrint;
+        for (i = 0; i < response.length; i++) {
+            toPrint += "<br>"
+            for (j = 0; j < response.length; j++) {
+                toPrint += response[i][j];
+            }
+        }
+        infoArea.innerHTML = toPrint;
+    })
 }
 
 function showStats() {
-    /*
-    const position = parseInt(positionTracker.textContent);
-    const username = user.textContent;
-    location.replace( "/" + username + "/game/" + position + "/stats");
-
-     */
-    let stats = '<table id="stats-table">' +
-                    '<tr><td>1s</td></tr>' +
-                    '<tr><td>2s</td></tr>' +
-                    '<tr><td>3s</td></tr>' +
-                    '<tr><td>4s</td></tr>' +
-                '</table>';
-    infoArea.innerHTML = stats;
+        fetch('/stats', {
+        body: JSON.stringify({
+            inventory: false,
+            map: false,
+            stats: true
+        }),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        method: 'post'
+    }).then(response => response.json(), err => {throw err}).then(response => {
+        console.log(response);
+        let i;
+        let toPrint;
+        for (i = 0; i < response.length; i++) {
+            toPrint += "<br>" + response[i];
+            infoArea.innerHTML = toPrint;
+        }
+    })
 }
 
 // Movement Buttons
