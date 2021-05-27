@@ -45,15 +45,21 @@ function showMap() {
         },
         method: 'post'
     }).then(response => response.json(), err => {throw err}).then(response => {
+        console.log(response)
         let i;
         let j;
         let toPrint;
         for (i = 0; i < response.length; i++) {
             toPrint += "<br>"
-            for (j = 0; j < response.length; j++) {
-                toPrint += response[i][j];
-            }
-        }
+            for (j = 0; j < response[i].length; j++) {
+                let curr_char = response[i][j]
+                if (curr_char.disc === true) {
+                    toPrint += curr_char.disc_char + " ";
+                } else {
+                    toPrint += curr_char.undisc_char + " ";
+                }
+            } //for j
+        } //for i
         infoArea.innerHTML = toPrint;
     })
 }
@@ -83,22 +89,70 @@ function showStats() {
 
 // Movement Buttons
 function moveNorth() {
-    textArea.innerHTML += 'Moved North\n';
+    fetch('/move', {
+        body: JSON.stringify({
+            direction: "north"
+        }),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        method: 'post'
+    }).then(response => response.json(), err => {throw err}).then(response => {
+        console.log(response);
+        textArea.innerHTML += 'Moved North\n';
+    })
     textArea.scrollTop = textArea.scrollHeight;
 }
 
 function moveEast() {
-    textArea.innerHTML += 'Moved East\n';
+    fetch('/move', {
+        body: JSON.stringify({
+            direction: "east"
+        }),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        method: 'post'
+    }).then(response => response.json(), err => {throw err}).then(response => {
+        console.log(response);
+        textArea.innerHTML += 'Moved East\n';
+    })
     textArea.scrollTop = textArea.scrollHeight;
 }
 
 function moveSouth() {
-    textArea.innerHTML += 'Moved South\n';
+    fetch('/move', {
+        body: JSON.stringify({
+            direction: "south"
+        }),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        method: 'post'
+    }).then(response => response.json(), err => {throw err}).then(response => {
+        console.log(response);
+        textArea.innerHTML += 'Moved South\n';
+    })
     textArea.scrollTop = textArea.scrollHeight;
 }
 
 function moveWest() {
-    textArea.innerHTML += 'Moved West\n';
+    fetch('/move', {
+        body: JSON.stringify({
+            direction: "west"
+        }),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        method: 'post'
+    }).then(response => response.json(), err => {throw err}).then(response => {
+        console.log(response);
+        textArea.innerHTML += 'Moved West\n';
+    })
     textArea.scrollTop = textArea.scrollHeight;
 }
 
