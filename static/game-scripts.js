@@ -13,9 +13,7 @@ const westButton = document.getElementById("west-button");
 function showInventory() {
     fetch('/inventory', {
         body: JSON.stringify({
-            inventory: true,
-            map: false,
-            stats: false
+            info: "inventory"
         }),
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -35,9 +33,7 @@ function showInventory() {
 function showMap() {
    fetch('/map', {
         body: JSON.stringify({
-            inventory: false,
-            map: true,
-            stats: false
+            info: "map"
         }),
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -67,9 +63,7 @@ function showMap() {
 function showStats() {
         fetch('/stats', {
         body: JSON.stringify({
-            inventory: false,
-            map: false,
-            stats: true
+            info: "stats"
         }),
         headers: {
             'Accept': 'application/json, text/plain, */*',

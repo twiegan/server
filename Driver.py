@@ -1,15 +1,24 @@
 import json
 
 from CharacterTypes import Player, NonPlayer
+from Item import Weapon, Armour, WTypes, ATypes
 from Map import Map, Tile
 
 
-def create_player(name, hp, dge, spd, phy_str, mgk_str, phy_res, fire_res, frost_res, inventory):
-    return Player(name, hp, dge, spd, phy_str, mgk_str, phy_res, fire_res, frost_res, inventory)
+def create_player(name, hp, dge, spd, phy_res, fire_res, frost_res, inventory):
+    return Player(name, hp, dge, spd, phy_res, fire_res, frost_res, inventory)
 
 
-def create_nonplayer(name, hp, dge, spd, phy_str, mgk_str, phy_res, fire_res, frost_res, weapon):
-    return NonPlayer(name, hp, dge, spd, phy_str, mgk_str, phy_res, fire_res, frost_res, weapon)
+def create_nonplayer(name, hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot):
+    return NonPlayer(name, hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot)
+
+
+def create_weapon(name, value, durability, type, damage):
+    return Weapon(name, value, durability, type, damage)
+
+
+def create_armour(name, value, durability, type, defense):
+    return Armour(name, value, durability, type, defense)
 
 
 def create_map(rows, cols, disc_char, undisc_char):
@@ -28,7 +37,10 @@ def create_tile(row, col, disc_char, undisc_char):
 
 
 def get_inventory(player):
-    return json.dumps(player.inventory)
+    to_dump = []
+    for item in player.inventory:
+        to_dump.append(item.toJson())
+    return json.dumps(to_dump, indent=4)
 
 
 def get_map(map):

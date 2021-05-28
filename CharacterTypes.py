@@ -2,13 +2,11 @@ MAX_CURR_TEAM = 3
 
 
 class Character:
-    def __init__(self, name, hp, dge, spd, phy_str, mgk_str, phy_res, fire_res, frost_res):
+    def __init__(self, name, hp, dge, spd, phy_res, fire_res, frost_res):
         self.abilities = []
         self.frostRes = frost_res
         self.fireRes = fire_res
         self.phyRes = phy_res
-        self.mgkStr = mgk_str
-        self.phyStr = phy_str
         self.spd = spd
         self.dge = dge
         self.hp = hp
@@ -16,38 +14,42 @@ class Character:
 
     def print_object(self):
         print(
-            f'Name: {self.name}\n'
-            f'HP: {self.hp}\n'
-            f'dge: {self.dge}\n'
-            f'spd: {self.spd}\n'
-            f'phyStr: {self.phyStr}\n'
-            f'mgkStr: {self.mgkStr}\n'
-            f'phyRes: {self.phyRes}\n'
-            f'fireRes: {self.fireRes}\n'
-            f'frostRes: {self.frostRes}\n'
+            'Character Object:\n'
+            f'Name: {self.name}, HP: {self.hp}, dge: {self.dge}, spd: {self.spd}\n'
+            f'phyRes: {self.phyRes} fireRes: {self.fireRes}, frostRes: {self.frostRes}\n'
             f'abilities: {self.abilities}\n'
         )
 
 
 class Player(Character):
-    def __init__(self, name, hp, dge, spd, phy_str, mgk_str, phy_res, fire_res, frost_res, inventory):
-        super().__init__(name, hp, dge, spd, phy_str, mgk_str, phy_res, fire_res, frost_res)
+    def __init__(self, name, hp, dge, spd, phy_res, fire_res, frost_res, inventory):
+        super().__init__(name, hp, dge, spd, phy_res, fire_res, frost_res)
         self.inventory = inventory
-        self.curr_team = []
-        self.full_team = []
+        self.team = []
 
     def print_object(self):
-        super().print_object()
-        f'inventory: {self.inventory}\n'
-        f'curr_team: {self.curr_team}\n'
-        f'full_team: {self.full_team}\n'
+        print(
+            'Player Object:\n'
+            f'Name: {self.name}, HP: {self.hp}, dge: {self.dge}, spd: {self.spd}\n'
+            f'phyRes: {self.phyRes} fireRes: {self.fireRes}, frostRes: {self.frostRes}\n'
+            f'abilities: {self.abilities}\n'
+            f'inventory: {self.inventory}\n'
+            f'team: {self.team}\n'
+        )
 
 
 class NonPlayer(Character):
-    def __init__(self, name, hp, dge, spd, phy_str, mgk_str, phy_res, fire_res, frost_res, weapon):
-        super().__init__(name, hp, dge, spd, phy_str, mgk_str, phy_res, fire_res, frost_res)
+    def __init__(self, name, hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot):
+        super().__init__(name, hp, dge, spd, phy_res, fire_res, frost_res)
         self.weapon = weapon
+        self.loot = loot
 
     def print_object(self):
-        super().print_object()
-        f'weapon: {self.weapon}\n'
+        print(
+            'NonPlayer Object:\n'
+            f'Name: {self.name}, HP: {self.hp}, dge: {self.dge}, spd: {self.spd}\n'
+            f'phyRes: {self.phyRes} fireRes: {self.fireRes}, frostRes: {self.frostRes}\n'
+            f'abilities: {self.abilities}\n'
+            f'weapon: {self.weapon}\n'
+            f'loot: {self.loot}\n'
+        )
