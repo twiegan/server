@@ -65,7 +65,7 @@ class Weapon(Item):
         )
 
     def toJson(self):
-        return json.dumps(self, default=lambda o: o.__dict__)
+        return {'name': self.name, 'value': self.value, 'durability': self.durability, 'type': self.type, 'damage': self.damage}
 
 
 class Armour(Item):
@@ -83,4 +83,4 @@ class Armour(Item):
         )
 
     def toJson(self):
-        return json.dumps(self, default=lambda o: o.__dict__)
+        return {'name': self.name, 'value': self.value, 'durability': self.durability, 'type': self.type, 'defense': self.defense}

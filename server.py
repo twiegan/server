@@ -2,7 +2,7 @@ import flask as fs
 from flask import request
 from Driver import *
 
-player = create_player(name="Basic Bitch",
+player = create_player(name="Test",
                        hp=0,
                        dge=0,
                        spd=0,
@@ -11,8 +11,10 @@ player = create_player(name="Basic Bitch",
                        frost_res=0,
                        inventory=[create_weapon("TestKnife", 500, 1, WTypes['Knife'], 1),
                                   create_weapon("TestBow", 1000, 2, WTypes['Bow'], 2),
-                                  create_weapon("TestHelm", 1500, 3, ATypes['Helm'], 3)])
-curr_map = create_map(rows=3, cols=3, disc_char="o", undisc_char="X")
+                                  create_armour("TestHelm", 1500, 3, ATypes['Helm'], 3),
+                                  create_armour("test4", 1500, 3, ATypes['Gauntlets'], 3),
+                                  create_armour("test50000", 15000, 3, ATypes['Breastplate'], 3)])
+curr_map = create_map(rows=17, cols=25, disc_char="o", undisc_char="X")
 curr_map.print_object()
 
 app = fs.Flask(__name__, template_folder='templates')
@@ -26,8 +28,7 @@ def game():
 @app.route('/inventory', methods=['POST'])
 def game_inventory():
     print(request.get_json())
-    inventory_json = get_inventory(player)
-    # inventory_json = json.dumps([WType.KNIFE, WType.SWORD, WType.BOW])
+    inventory_json = get_inventory_json(player)
     return inventory_json
 
 

@@ -12,6 +12,14 @@ body {
   background-color: #3a3a3a;
 }
 
+table {
+  margin: auto;
+}
+
+td {
+  text-align: center;
+}
+
 #main-holder {
   width: 75%;
   height: 85%;
@@ -37,24 +45,6 @@ body {
   width: 40%;
   border : 2px solid red;
   display: inline-block;
-}
-
-#inventory-table {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-#map-table {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-#stats-table {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
 }
 
 #game-form {

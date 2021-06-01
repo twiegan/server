@@ -36,22 +36,25 @@ def create_tile(row, col, disc_char, undisc_char):
     return Tile(row, col, disc_char, undisc_char)
 
 
-def get_inventory(player):
-    to_dump = []
-    for item in player.inventory:
-        to_dump.append(item.toJson())
-    return json.dumps(to_dump, indent=4)
+def get_inventory_json(player):
+    inventory = {}
+    for i, item in enumerate(player.ns_inventory):
+        inventory[i] = item.toJson()
+    return json.dumps(inventory)
 
 
 def get_map(map):
     return map.toJson()
 
 
+def get_stats(player):
+    stats = {}
+    for i in vars(player):
+        if not i.startswith('ns_'):
+            stats[i] = vars(player)[i]
+    return json.dumps(stats)
+
+
 def move(direction, player, map):
     return json.dumps([0, 1, 2])
 
-
-def get_stats(player):
-    stats = ["hp: {hp}\n".format(hp=player.hp),
-             "dge: {dge}\n".format(dge=player.dge)]
-    return json.dumps(stats)
