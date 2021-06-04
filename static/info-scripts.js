@@ -59,14 +59,16 @@ function showMap() {
             infoArea.innerHTML = "No map";
         } else {
             let table = '<table><tbody>';
-            for (let i in response) {
+            for (let i in response.curr_map) {
                 table += '<tr>'
-                for (let j in response[i])
-                    if (response[i][j].disc === true) {
-                            table += '<td>'+response[i][j].disc_char+'</td>';
-                        } else {
-                            table += '<td>'+response[i][j].undisc_char+'</td>';
-                        }
+                for (let j in response.curr_map[i])
+                    if (response.curr_map[i][j].hasPlayer === true) {
+                        table += '<td>'+response.player_char+'</td>';
+                    } else if (response.curr_map[i][j].disc === true) {
+                        table += '<td>'+response.curr_map[i][j].disc_char+'</td>';
+                    } else {
+                        table += '<td>'+response.undisc_char+'</td>';
+                    }
                 table += '</tr>'
             }
             infoArea.innerHTML = table;

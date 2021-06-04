@@ -65,7 +65,8 @@ class Weapon(Item):
         )
 
     def toJson(self):
-        return {'name': self.name, 'value': self.value, 'durability': self.durability, 'type': self.type, 'damage': self.damage}
+        return {'name': self.name, 'value': self.value, 'durability': self.durability, 'type': self.type,
+                'damage': self.damage}
 
 
 class Armour(Item):
@@ -83,4 +84,5 @@ class Armour(Item):
         )
 
     def toJson(self):
-        return {'name': self.name, 'value': self.value, 'durability': self.durability, 'type': self.type, 'defense': self.defense}
+        return {'name': self.name, 'value': self.value, 'durability': self.durability, 'type': self.type,
+                'defense': self.defense}

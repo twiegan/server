@@ -13,9 +13,11 @@ player = create_player(name="Test",
                                   create_weapon("TestBow", 1000, 2, WTypes['Bow'], 2),
                                   create_armour("TestHelm", 1500, 3, ATypes['Helm'], 3),
                                   create_armour("test4", 1500, 3, ATypes['Gauntlets'], 3),
-                                  create_armour("test50000", 15000, 3, ATypes['Breastplate'], 3)])
-curr_map = create_map(rows=17, cols=25, disc_char="o", undisc_char="X")
-curr_map.print_object()
+                                  create_armour("test50000", 15000, 3, ATypes['Breastplate'], 3)],
+                       xpos=12,
+                       ypos=8)
+curr_map = create_map(rows=17, cols=25, disc_char="o", player=player, description="This is a test")
+
 
 app = fs.Flask(__name__, template_folder='templates')
 
@@ -35,21 +37,21 @@ def game_inventory():
 @app.route('/map', methods=['POST'])
 def game_map():
     print(request.get_json())
-    map_json = get_map(curr_map)
+    map_json = get_map_json(curr_map)
     return map_json
 
 
 @app.route('/stats', methods=['POST'])
 def game_stats():
     print(request.get_json())
-    stats_json = get_stats(player)
+    stats_json = get_stats_json(player)
     return stats_json
 
 
 @app.route('/move', methods=['POST'])
 def game_move():
     print(request.get_json())
-    move_json = move(request.get_json()['direction'], player, curr_map)
+    move_json = get_move_json(request.get_json()['direction'], player, curr_map)
     return move_json
 
 
