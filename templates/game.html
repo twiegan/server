@@ -7,37 +7,26 @@
     <link rel="stylesheet" href="/static/game-style.css">
     <script defer src="/static/info-scripts.js"></script>
     <script defer src="/static/move-scripts.js"></script>
+    <script defer src="/static/combat-scripts.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
 
   <main id="main-holder">
-    <div id="game-content">
-      <div id="game-text">
-      <textarea id=text-area rows="25" cols="75" disabled="disabled" style="resize: none">
-        Hello
-      </textarea>
+    <div id="content">
+      <div id="text">
+          <textarea id=text-area rows="25" cols="75" disabled="disabled" style="resize: none"></textarea>
       </div>
 
-      <div id="game-info">
+      <div id="info">
       </div>
     </div>
 
 
-    <form id="game-form">
-      <div class="button-holder">
-        <input type="button" value="Inventory" id="button-holder-inventory" class="game-form-field" onclick="showInventory()">
-        <input type="button" value="Map" id="button-holder-map" class="game-form-field" onclick="showMap()">
-        <input type="button" value="Stats" id="button-holder-stats" class="game-form-field" onclick="showStats()">
-      </div>
-      <input type="button" value="North" id="north-button" class="game-form-field" onclick="moveNorth()">
-      <div class="button-holder">
-        <input type="button" value="West" id="west-button" class="game-form-field" onclick="moveWest()">
-        <input type="button" value="South" id="south-button" class="game-form-field" onclick="moveSouth()">
-        <input type="button" value="East" id="east-button" class="game-form-field" onclick="moveEast()">
-      </div>
-    </form>
+    <div id="combat">
+        <pre id="combat-text"></pre>
+    </div>
   </main>
 
 </body>

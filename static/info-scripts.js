@@ -1,7 +1,4 @@
-const infoArea = document.getElementById("game-info");
-const inventoryButton = document.getElementById("button-holder-inventory");
-const mapButton = document.getElementById("button-holder-map");
-const statsButton = document.getElementById("button-holder-stats");
+const infoArea = document.getElementById("info");
 
 // Info Screen Buttons
 function showInventory() {
@@ -26,7 +23,7 @@ function showInventory() {
                 table += '<td>'+response[i]['name']+'</td>';
                 table += '<td>'+response[i]['value']+'</td>';
                 table += '<td>'+response[i]['durability']+'</td>';
-                table += '<td>'+response[i]['type']['name']+'</td>';
+                table += '<td>'+response[i]['type']+'</td>';
                 if (response[i]['damage']) {
                     table += '<td>'+response[i]['damage']+'</td>';
                 } else {
@@ -53,7 +50,7 @@ function showMap() {
             'Content-Type': 'application/json'
         },
         method: 'post'
-    }).then(response => response.json(), err => {throw err}).then(response => {
+   }).then(response => response.json(), err => {throw err}).then(response => {
        console.log(response)
         if (Object.keys(response).length === 0) {
             infoArea.innerHTML = "No map";
@@ -65,7 +62,11 @@ function showMap() {
                     if (response.curr_map[i][j].hasPlayer === true) {
                         table += '<td>'+response.player_char+'</td>';
                     } else if (response.curr_map[i][j].disc === true) {
-                        table += '<td>'+response.curr_map[i][j].disc_char+'</td>';
+                        if (response.curr_map[i][j].location != null) {
+                            table += '<td>'+response.curr_map[i][j].location.loc_char+'</td>';
+                        } else {
+                            table += '<td>'+response.curr_map[i][j].disc_char+'</td>';
+                        }
                     } else {
                         table += '<td>'+response.undisc_char+'</td>';
                     }
@@ -73,11 +74,11 @@ function showMap() {
             }
             infoArea.innerHTML = table;
         }
-    })
+   })
 }
 
 function showStats() {
-        fetch('/stats', {
+    fetch('/stats', {
         body: JSON.stringify({
             info: "stats"
         }),
@@ -105,12 +106,12 @@ function showStats() {
 document.addEventListener('keydown', function(e) {
     e.preventDefault();
     if(e.key === 'i' || e.code === 'KeyI') {
-        inventoryButton.click();
+        showInventory();
     }
     else if(e.key === 'm' || e.code === 'KeyM') {
-        mapButton.click();
+        showMap();
     }
     else if(e.key === 's' || e.code === 'KeyS') {
-        statsButton.click();
+        showStats();
     }
 });

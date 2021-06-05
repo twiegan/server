@@ -1,13 +1,10 @@
-import json
-
-
 class Map:
     def __init__(self, rows, cols, map):
-        self.player_char = "$"
-        self.undisc_char = "_"
+        self.player_char = "$"  # displayed character for the player
+        self.undisc_char = "_"  # displayed character pre discovery
         self.rows = rows
         self.cols = cols
-        self.map = map
+        self.map = map  # 2D list of Tiles
 
     def to_string(self):
         to_return = ''
@@ -26,17 +23,21 @@ class Map:
             print(f'{to_print}')
 
     def toJson(self):
-        return json.dumps({'player_char': self.player_char, 'undisc_char': self.undisc_char, 'curr_map': [[ob.__dict__ for ob in lst] for lst in self.map]})
+        return {'player_char': self.player_char, 'undisc_char': self.undisc_char,
+                'curr_map': [[ob.toJson() for ob in lst] for lst in self.map]}
 
 
 class Tile:
-    def __init__(self, xpos, ypos, disc_char, description):
+    def __init__(self, xpos, ypos, disc_char, description, location, weight, type):
         self.disc = False
         self.hasPlayer = False
         self.xpos = xpos
         self.ypos = ypos
-        self.disc_char = disc_char
-        self.description = description
+        self.disc_char = disc_char  # displayed character after discovery
+        self.description = description  # displayed description on entry if no location
+        self.location = location  # point of interest
+        self.weight = weight  # weight out of 100
+        self.type = type
 
     def to_string(self):
         return f'{self.disc_char}'
@@ -49,4 +50,23 @@ class Tile:
         )
 
     def toJson(self):
-        return {'ypos': self.ypos, 'xpos': self.xpos, 'description': self.description}
+        return {'disc': self.disc, 'hasPlayer': self.hasPlayer, 'xpos': self.xpos, 'ypos': self.ypos,
+                'disc_char': self.disc_char, 'description': self.description,
+                'location': None if self.location is None else self.location.toJson(),
+                'weight': self.weight, 'type': self.type}
+
+
+class Location:
+    def __init__(self, name, description, loc_char):
+        self.name = name
+        self.description = description  # displayed description on entry if no location
+        self.loc_char = loc_char  # displayed character after discovery
+
+    def print_object(self):
+        print(
+            'Location Object:\n'
+            f'Name: {self.name}, Description: {self.description}, Loc_char: {self.loc_char}\n'
+        )
+
+    def toJson(self):
+        return {'name': self.name, 'description': self.description, 'loc_char': self.loc_char}

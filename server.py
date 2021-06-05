@@ -9,14 +9,14 @@ player = create_player(name="Test",
                        phy_res=0,
                        fire_res=0,
                        frost_res=0,
-                       inventory=[create_weapon("TestKnife", 500, 1, WTypes['Knife'], 1),
-                                  create_weapon("TestBow", 1000, 2, WTypes['Bow'], 2),
-                                  create_armour("TestHelm", 1500, 3, ATypes['Helm'], 3),
-                                  create_armour("test4", 1500, 3, ATypes['Gauntlets'], 3),
-                                  create_armour("test50000", 15000, 3, ATypes['Breastplate'], 3)],
-                       xpos=12,
-                       ypos=8)
-curr_map = create_map(rows=17, cols=25, disc_char="o", player=player, description="This is a test")
+                       inventory=[create_weapon("TestKnife", 500, 1, 1, type='Knife'),
+                                  create_weapon("TestBow", 1000, 2, 2, type='Bow'),
+                                  create_armour("TestHelm", 1500, 3, 3, type='Helm'),
+                                  create_armour("test4", 1500, 3, 3, type='Gauntlets'),
+                                  create_armour("test50000", 15000, 3, 3, type='Breastplate')],
+                       xpos=2,
+                       ypos=1)
+curr_map = create_map(rows=17, cols=25, player=player)
 
 
 app = fs.Flask(__name__, template_folder='templates')
@@ -46,6 +46,13 @@ def game_stats():
     print(request.get_json())
     stats_json = get_stats_json(player)
     return stats_json
+
+
+@app.route('/combat', methods=['POST'])
+def game_combat():
+    print(request.get_json())
+    combat_json = get_combat_json(player, curr_map)
+    return combat_json
 
 
 @app.route('/move', methods=['POST'])

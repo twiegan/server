@@ -1,11 +1,7 @@
 const textArea = document.getElementById("text-area");
-const northButton = document.getElementById("north-button");
-const eastButton = document.getElementById("east-button");
-const southButton = document.getElementById("south-button");
-const westButton = document.getElementById("west-button");
 
 // Movement Buttons
-function moveNorth() {
+function moveNorth(callback) {
     fetch('/move', {
         body: JSON.stringify({
             direction: "north"
@@ -18,16 +14,17 @@ function moveNorth() {
     }).then(response => response.json(), err => {throw err}).then(response => {
         console.log(response);
         if (response.xpos === -1 && response.ypos === -1) {
-            textArea.innerHTML += 'You are forbidden to enter the Shadowlands\n\n'
+            textArea.innerHTML += 'Forbidden\n\n'
         } else {
             textArea.innerHTML += 'Moved North...\n';
             textArea.innerHTML += response.description + "\n\n";
         }
     })
     textArea.scrollTop = textArea.scrollHeight;
+    callback();
 }
 
-function moveEast() {
+function moveEast(callback) {
     fetch('/move', {
         body: JSON.stringify({
             direction: "east"
@@ -39,16 +36,17 @@ function moveEast() {
         method: 'post'
     }).then(response => response.json(), err => {throw err}).then(response => {
         console.log(response);if (response.xpos === -1 && response.ypos === -1) {
-            textArea.innerHTML += 'You are forbidden to enter the Shadowlands\n\n'
+            textArea.innerHTML += 'Forbidden\n\n'
         } else {
             textArea.innerHTML += 'Moved East...\n';
             textArea.innerHTML += response.description + "\n\n";
         }
     })
     textArea.scrollTop = textArea.scrollHeight;
+    callback();
 }
 
-function moveSouth() {
+function moveSouth(callback) {
     fetch('/move', {
         body: JSON.stringify({
             direction: "south"
@@ -61,16 +59,17 @@ function moveSouth() {
     }).then(response => response.json(), err => {throw err}).then(response => {
         console.log(response);
         if (response.xpos === -1 && response.ypos === -1) {
-            textArea.innerHTML += 'You are forbidden to enter the Shadowlands\n\n'
+            textArea.innerHTML += 'Forbidden\n\n'
         } else {
             textArea.innerHTML += 'Moved South...\n';
             textArea.innerHTML += response.description + "\n\n";
         }
     })
     textArea.scrollTop = textArea.scrollHeight;
+    callback();
 }
 
-function moveWest() {
+function moveWest(callback) {
     fetch('/move', {
         body: JSON.stringify({
             direction: "west"
@@ -83,29 +82,30 @@ function moveWest() {
     }).then(response => response.json(), err => {throw err}).then(response => {
         console.log(response);
         if (response.xpos === -1 && response.ypos === -1) {
-            textArea.innerHTML += 'You are forbidden to enter the Shadowlands\n\n'
+            textArea.innerHTML += 'Forbidden\n\n'
         } else {
             textArea.innerHTML += 'Moved West...\n';
             textArea.innerHTML += response.description + "\n\n";
         }
     })
     textArea.scrollTop = textArea.scrollHeight;
+    callback();
 }
 
 // Keybindings
 document.addEventListener('keydown', function(e) {
     e.preventDefault();
     if (e.key === 'ArrowUp' || e.code === 'ArrowUp') {
-        northButton.click();
-        mapButton.click();
+        moveNorth(showMap); // callbacks to guarantee order
+        showCombat();
     } else if (e.key === 'ArrowRight' || e.code === 'ArrowRight') {
-        eastButton.click();
-        mapButton.click();
+        moveEast(showMap);
+        showCombat();
     } else if (e.key === 'ArrowDown' || e.code === 'ArrowDown') {
-        southButton.click();
-        mapButton.click();
+        moveSouth(showMap);
+        showCombat();
     } else if (e.key === 'ArrowLeft' || e.code === 'ArrowLeft') {
-        westButton.click();
-        mapButton.click();
+        moveWest(showMap);
+        showCombat();
     }
 });
