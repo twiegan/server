@@ -12,6 +12,14 @@ function showCombat() {
         method: 'post'
     }).then(response => response.json(), err => {throw err}).then(response => {
         console.log(response);
-        combatArea.innerHTML = response.text;
+        if (response.combat === true) {
+            let newText = `\n${response.player_char}    vs.    `
+            for (var i in response.enemies) {
+                newText += response.enemies[i].enemy_char + "    "
+            }
+            combatArea.innerHTML = newText
+        } else {
+            combatArea.innerHTML = "No combat"
+        }
     })
 }

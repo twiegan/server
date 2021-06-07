@@ -19,9 +19,9 @@ function moveNorth(callback) {
             textArea.innerHTML += 'Moved North...\n';
             textArea.innerHTML += response.description + "\n\n";
         }
+        textArea.scrollTop = textArea.scrollHeight;
+        callback();
     })
-    textArea.scrollTop = textArea.scrollHeight;
-    callback();
 }
 
 function moveEast(callback) {
@@ -41,9 +41,9 @@ function moveEast(callback) {
             textArea.innerHTML += 'Moved East...\n';
             textArea.innerHTML += response.description + "\n\n";
         }
+        textArea.scrollTop = textArea.scrollHeight;
+        callback();
     })
-    textArea.scrollTop = textArea.scrollHeight;
-    callback();
 }
 
 function moveSouth(callback) {
@@ -64,9 +64,9 @@ function moveSouth(callback) {
             textArea.innerHTML += 'Moved South...\n';
             textArea.innerHTML += response.description + "\n\n";
         }
+        textArea.scrollTop = textArea.scrollHeight;
+        callback();
     })
-    textArea.scrollTop = textArea.scrollHeight;
-    callback();
 }
 
 function moveWest(callback) {
@@ -87,9 +87,9 @@ function moveWest(callback) {
             textArea.innerHTML += 'Moved West...\n';
             textArea.innerHTML += response.description + "\n\n";
         }
+        textArea.scrollTop = textArea.scrollHeight;
+        callback();
     })
-    textArea.scrollTop = textArea.scrollHeight;
-    callback();
 }
 
 // Keybindings

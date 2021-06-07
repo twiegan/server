@@ -1,7 +1,10 @@
+from Constants import PLAYER_CHAR, UNDISCOVERED_CHAR
+
+
 class Map:
     def __init__(self, rows, cols, map):
-        self.player_char = "$"  # displayed character for the player
-        self.undisc_char = "_"  # displayed character pre discovery
+        self.player_char = PLAYER_CHAR  # displayed character for the player
+        self.undisc_char = UNDISCOVERED_CHAR  # displayed character pre discovery
         self.rows = rows
         self.cols = cols
         self.map = map  # 2D list of Tiles
