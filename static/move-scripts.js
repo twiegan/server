@@ -1,7 +1,7 @@
 const textArea = document.getElementById("text-area");
 
 // Movement Buttons
-function moveNorth(callback) {
+function moveNorth(callback, callback2) {
     fetch('/move', {
         body: JSON.stringify({
             direction: "north"
@@ -12,19 +12,20 @@ function moveNorth(callback) {
         },
         method: 'post'
     }).then(response => response.json(), err => {throw err}).then(response => {
-        console.log(response);
+        console.log('moveNorth(): response', response);
         if (response.xpos === -1 && response.ypos === -1) {
             textArea.innerHTML += 'Forbidden\n\n'
         } else {
             textArea.innerHTML += 'Moved North...\n';
             textArea.innerHTML += response.description + "\n\n";
+            callback();
+            callback2();
         }
         textArea.scrollTop = textArea.scrollHeight;
-        callback();
     })
-}
+} // moveNorth()
 
-function moveEast(callback) {
+function moveEast(callback, callback2) {
     fetch('/move', {
         body: JSON.stringify({
             direction: "east"
@@ -35,18 +36,20 @@ function moveEast(callback) {
         },
         method: 'post'
     }).then(response => response.json(), err => {throw err}).then(response => {
-        console.log(response);if (response.xpos === -1 && response.ypos === -1) {
+        console.log('moveEast(): response', response);
+        if (response.xpos === -1 && response.ypos === -1) {
             textArea.innerHTML += 'Forbidden\n\n'
         } else {
             textArea.innerHTML += 'Moved East...\n';
             textArea.innerHTML += response.description + "\n\n";
+            callback();
+            callback2();
         }
         textArea.scrollTop = textArea.scrollHeight;
-        callback();
     })
-}
+} // moveEast()
 
-function moveSouth(callback) {
+function moveSouth(callback, callback2) {
     fetch('/move', {
         body: JSON.stringify({
             direction: "south"
@@ -57,19 +60,20 @@ function moveSouth(callback) {
         },
         method: 'post'
     }).then(response => response.json(), err => {throw err}).then(response => {
-        console.log(response);
+        console.log('moveSouth(): response', response);
         if (response.xpos === -1 && response.ypos === -1) {
             textArea.innerHTML += 'Forbidden\n\n'
         } else {
             textArea.innerHTML += 'Moved South...\n';
             textArea.innerHTML += response.description + "\n\n";
+            callback();
+            callback2();
         }
         textArea.scrollTop = textArea.scrollHeight;
-        callback();
     })
-}
+} // moveSouth()
 
-function moveWest(callback) {
+function moveWest(callback, callback2) {
     fetch('/move', {
         body: JSON.stringify({
             direction: "west"
@@ -80,32 +84,15 @@ function moveWest(callback) {
         },
         method: 'post'
     }).then(response => response.json(), err => {throw err}).then(response => {
-        console.log(response);
+        console.log('moveWest(): response', response);
         if (response.xpos === -1 && response.ypos === -1) {
             textArea.innerHTML += 'Forbidden\n\n'
         } else {
             textArea.innerHTML += 'Moved West...\n';
             textArea.innerHTML += response.description + "\n\n";
+            callback();
+            callback2();
         }
         textArea.scrollTop = textArea.scrollHeight;
-        callback();
     })
-}
-
-// Keybindings
-document.addEventListener('keydown', function(e) {
-    e.preventDefault();
-    if (e.key === 'ArrowUp' || e.code === 'ArrowUp') {
-        moveNorth(showMap); // callbacks to guarantee order
-        showCombat();
-    } else if (e.key === 'ArrowRight' || e.code === 'ArrowRight') {
-        moveEast(showMap);
-        showCombat();
-    } else if (e.key === 'ArrowDown' || e.code === 'ArrowDown') {
-        moveSouth(showMap);
-        showCombat();
-    } else if (e.key === 'ArrowLeft' || e.code === 'ArrowLeft') {
-        moveWest(showMap);
-        showCombat();
-    }
-});
+} // moveWest()

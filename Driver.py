@@ -1,21 +1,18 @@
 import json
 import random
 
-from Character import Player, NonPlayer
+from Character import Player
 from Map import Map
 from ListItem import *
 from ListLocation import *
 from ListTile import *
 from ListEnemy import *
+from ListAlly import *
 from Constants import *
 
 
 def create_player(name, hp, dge, spd, phy_res, fire_res, frost_res, inventory, xpos, ypos):
     return Player(name, hp, dge, spd, phy_res, fire_res, frost_res, inventory, xpos, ypos)
-
-
-def create_nonplayer(name, hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot):
-    return NonPlayer(name, hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot)
 
 
 def create_weapon(name, value, durability, damage, type):
@@ -40,13 +37,18 @@ def create_armour(name, value, durability, defense, type):
         return Boots(name, value, durability, defense)
 
 
-def create_enemy(name, hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot, type):
+def create_enemy(type, hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot):
     if type == 'Bandit':
-        return Bandit(name, hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot)
+        return Bandit(hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot)
     elif type == 'Ogre':
-        return Ogre(name, hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot)
+        return Ogre(hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot)
     elif type == 'Goblin':
-        return Goblin(name, hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot)
+        return Goblin(hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot)
+
+
+def create_ally(type, hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot):
+    if type == 'Thomas':
+        return Thomas(hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot)
 
 
 def create_map(rows, cols, player):
@@ -93,17 +95,27 @@ def get_combat_json(player, map):
     combat_json = {'combat': False}
     if curr_tile.location is None:
         if random.randrange(100) < curr_tile.weight:
+            # basic info
             combat_json['combat'] = True
             combat_json['player_char'] = PLAYER_CHAR
+
+            # player
+            combat_json['player'] = player.toJson()
+
+            # enemies
             possible_enemies = ENEMY_TILE[curr_tile.type]
             enemy_weights = ENEMY_TILE_CUM_WEIGHTS[curr_tile.type]
-            num_enemies = random.randint(1, 3)
+            num_enemies = random.randint(MIN_TEAM, MAX_TEAM)
             combat_json['num_enemies'] = num_enemies
             enemies = {}
             for i in range(num_enemies):
                 curr_enemy_type = random.choices(possible_enemies, enemy_weights, k=1)
-                enemies[f'enemy{i}'] = create_enemy("testEnemy", 1, 1, 1, 1, 1, 1, create_weapon("testWeapon", 1, 1, 1, 'Knife').toJson(), create_weapon("testLoot", 1, 1, 1, 'Sword').toJson(), curr_enemy_type[0]).toJson()
+                enemies[f'enemy{i}'] = create_enemy(curr_enemy_type[0], 1, 1, 1, 1, 1, 1, create_weapon("testWeapon", 1, 1, 1, 'Knife').toJson(), create_weapon("testLoot", 1, 1, 1, 'Sword').toJson()).toJson()
             combat_json['enemies'] = enemies
+
+            # allies
+            combat_json['allies'] = {f'ally0': create_ally('Thomas', 10, 10, 10, 10, 10, 10, create_weapon("testWeapon", 1, 1, 1, 'Knife').toJson(), create_weapon("testLoot", 1, 1, 1, 'Sword').toJson()).toJson()}
+
     return combat_json
 
 

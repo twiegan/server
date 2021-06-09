@@ -1,6 +1,8 @@
 # General Constants
 PLAYER_CHAR = "$"  # displayed character for the player
 UNDISCOVERED_CHAR = "_"  # displayed character pre discovery
+MAX_TEAM = 3
+MIN_TEAM = 1
 
 
 # Tile Constants

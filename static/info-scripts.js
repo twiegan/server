@@ -12,13 +12,13 @@ function showInventory() {
         },
         method: 'post'
     }).then(response => response.json(), err => {throw err}).then(response => {
-        console.log((response))
+        console.log('showInventory(): response', response);
         if (Object.keys(response).length === 0) {
             infoArea.innerHTML = "No items";
         } else {
-            var table = '<table><thead><tr><th>Name</th><th>Value</th><th>Durability</th><th>Type</th><th>Damage</th><th>Defense</th></tr></thead>';
+            let table = '<table><thead><tr><th>Name</th><th>Value</th><th>Durability</th><th>Type</th><th>Damage</th><th>Defense</th></tr></thead>';
             table += '<tbody>';
-            for (var i in response) {
+            for (let i in response) {
                 table += '<tr>';
                 table += '<td>'+response[i]['name']+'</td>';
                 table += '<td>'+response[i]['value']+'</td>';
@@ -51,13 +51,13 @@ function showMap() {
         },
         method: 'post'
    }).then(response => response.json(), err => {throw err}).then(response => {
-       console.log(response)
+        console.log('showMap(): response', response);
         if (Object.keys(response).length === 0) {
             infoArea.innerHTML = "No map";
         } else {
             let table = '<table><tbody>';
             for (let i in response.curr_map) {
-                table += '<tr>'
+                table += '<tr>';
                 for (let j in response.curr_map[i])
                     if (response.curr_map[i][j].hasPlayer === true) {
                         table += '<td>'+response.player_char+'</td>';
@@ -70,7 +70,7 @@ function showMap() {
                     } else {
                         table += '<td>'+response.undisc_char+'</td>';
                     }
-                table += '</tr>'
+                table += '</tr>';
             }
             infoArea.innerHTML = table;
         }
@@ -88,30 +88,16 @@ function showStats() {
         },
         method: 'post'
     }).then(response => response.json(), err => {throw err}).then(response => {
-        console.log(response);
+        console.log('showStats(): response', response);
         if (Object.keys(response).length === 0) {
             infoArea.innerHTML = "No stats";
         } else {
-            var table = '<table>';
+            let table = '<table>';
             table += '<tbody>';
-            for (var i in response) {
+            for (let i in response) {
                 table += '<tr><th>'+i+':</th><td>'+response[i]+'</td></tr>';
             }
             infoArea.innerHTML = table;
         }
     })
 }
-
-// Keybindings
-document.addEventListener('keydown', function(e) {
-    e.preventDefault();
-    if(e.key === 'i' || e.code === 'KeyI') {
-        showInventory();
-    }
-    else if(e.key === 'm' || e.code === 'KeyM') {
-        showMap();
-    }
-    else if(e.key === 's' || e.code === 'KeyS') {
-        showStats();
-    }
-});
