@@ -60,16 +60,15 @@ class Tile:
 
 
 class Location:
-    def __init__(self, name, description, loc_char):
+    def __init__(self, name, description, loc_char, options):
         self.name = name
-        self.description = description  # displayed description on entry if no location
+        self.description = description  # displayed description on entry
         self.loc_char = loc_char  # displayed character after discovery
+        self.options = options
 
     def print_object(self):
         print(
             'Location Object:\n'
-            f'Name: {self.name}, Description: {self.description}, Loc_char: {self.loc_char}\n'
+            f'Name: {self.name}, Description: {self.description}, Loc_char: {self.loc_char}, Options:{self.options}\n'
         )
 
-    def toJson(self):
-        return {'name': self.name, 'description': self.description, 'loc_char': self.loc_char}

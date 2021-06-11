@@ -1,5 +1,6 @@
 # General Constants
 PLAYER_CHAR = "$"  # displayed character for the player
+DEATH_CHAR = "_"
 UNDISCOVERED_CHAR = "_"  # displayed character pre discovery
 MAX_TEAM = 3
 MIN_TEAM = 1

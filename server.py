@@ -3,19 +3,20 @@ from flask import request
 from Driver import *
 
 player = create_player(name="Test",
-                       hp=0,
-                       dge=0,
-                       spd=0,
-                       phy_res=0,
-                       fire_res=0,
-                       frost_res=0,
+                       hp=25,
+                       dge=10,
+                       spd=10,
+                       phy_res=10,
+                       fire_res=10,
+                       frost_res=10,
                        inventory=[create_weapon("TestKnife", 500, 1, 1, type='Knife'),
                                   create_weapon("TestBow", 1000, 2, 2, type='Bow'),
                                   create_armour("TestHelm", 1500, 3, 3, type='Helm'),
                                   create_armour("test4", 1500, 3, 3, type='Gauntlets'),
                                   create_armour("test50000", 15000, 3, 3, type='Breastplate')],
                        xpos=2,
-                       ypos=1)
+                       ypos=1,
+                       weapon=create_weapon("TestPlayerWeapon", 500, 2, 2, type='Sword'))
 curr_map = create_map(rows=17, cols=25, player=player)
 
 
@@ -27,32 +28,45 @@ def game():
     return fs.render_template('game.html')
 
 
-@app.route('/inventory', methods=['POST'])
-def game_inventory():
+@app.route('/info', methods=['POST'])
+def game_info():
     print(request.get_json())
-    inventory_json = get_inventory_json(player)
-    return inventory_json
-
-
-@app.route('/map', methods=['POST'])
-def game_map():
-    print(request.get_json())
-    map_json = get_map_json(curr_map)
-    return map_json
-
-
-@app.route('/stats', methods=['POST'])
-def game_stats():
-    print(request.get_json())
-    stats_json = get_stats_json(player)
-    return stats_json
+    info_json = None
+    if request.get_json()['info'] == 'info/inventory':
+        info_json = get_inventory_json(player)
+    elif request.get_json()['info'] == 'info/map':
+        info_json = get_map_json(curr_map)
+    elif request.get_json()['info'] == 'info/stats':
+        info_json = get_stats_json(player)
+    return info_json
 
 
 @app.route('/combat', methods=['POST'])
 def game_combat():
     print(request.get_json())
-    combat_json = get_combat_json(player, curr_map)
+    combat_json = None
+    if request.get_json()['info'] == 'combat/initiate':
+        combat_json = initiate_combat(player, curr_map)
+    elif request.get_json()['info'] == 'combat/show':
+        combat_json = show_combat()
+    elif request.get_json()['info'] == 'combat/calculate':
+        combat_json = calculate_combat(request.get_json()['target'])
+    elif request.get_json()['info'] == 'combat/showAllyStats':
+        combat_json = show_ally_stats()
+    elif request.get_json()['info'] == 'combat/showEnemyStats':
+        combat_json = show_enemy_stats()
     return combat_json
+
+
+@app.route('/location', methods=['POST'])
+def game_location():
+    print(request.get_json())
+    location_json = None
+    if request.get_json()['info'] == 'location/show':
+        location_json = get_location_json(player, curr_map)
+    elif request.get_json()['info'] == 'location/selectOption':
+        location_json = get_location_json(player, curr_map)
+    return location_json
 
 
 @app.route('/move', methods=['POST'])

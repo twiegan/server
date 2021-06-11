@@ -7,6 +7,7 @@ class Character:
         self.phy_res = phy_res
         self.fire_res = fire_res
         self.frost_res = frost_res
+        self.isAlive = True
 
     def print_object(self):
         print(
@@ -18,12 +19,13 @@ class Character:
 
 
 class Player(Character):
-    def __init__(self, name, hp, dge, spd, phy_res, fire_res, frost_res, inventory, xpos, ypos):
+    def __init__(self, name, hp, dge, spd, phy_res, fire_res, frost_res, inventory, xpos, ypos, weapon):
         super().__init__(hp, dge, spd, phy_res, fire_res, frost_res)
         self.name = name
         self.inventory = inventory
         self.xpos = xpos
         self.ypos = ypos
+        self.weapon = weapon
         self.team = {}
 
     def print_object(self):
@@ -31,19 +33,20 @@ class Player(Character):
             'Player Object:\n'
             f'Name: {self.name}, HP: {self.hp}, dge: {self.dge}, spd: {self.spd}\n'
             f'phy_res: {self.phy_res} fire_res: {self.fire_res}, frost_res: {self.frost_res}\n'
-            f'abilities: {self.abilities}\n'
             f'inventory: {self.inventory}\n'
             f'team: {self.team}\n'
         )
 
-    def statsJson(self):
+    def toJson(self):
         return {'name': self.name, 'hp': self.hp, 'dge': self.dge, 'spd': self.spd,
                 'phy_res': self.phy_res, 'fire_res': self.fire_res, 'frost_res': self.frost_res}
 
-    def toJson(self):
+    def toCombatJson(self):
+        return {'isAlive': self.isAlive}
+
+    def toStatsJson(self):
         return {'name': self.name, 'hp': self.hp, 'dge': self.dge, 'spd': self.spd,
-                'phy_res': self.phy_res, 'fire_res': self.fire_res, 'frost_res': self.frost_res,
-                'abilities': self.abilities}
+                'phy_res': self.phy_res, 'fire_res': self.fire_res, 'frost_res': self.frost_res}
 
 
 class NonPlayer(Character):
@@ -74,6 +77,13 @@ class Enemy(NonPlayer):
                 'fire_res': self.fire_res, 'frost_res': self.frost_res, 'weapon': self.weapon, 'loot': self.loot,
                 'enemy_char': self.enemy_char}
 
+    def toCombatJson(self):
+        return {'type': self.type, 'enemy_char': self.enemy_char, 'isAlive': self.isAlive}
+
+    def toStatsJson(self):
+        return {'type': self.type, 'hp': self.hp, 'dge': self.dge, 'spd': self.spd, 'phy_res': self.phy_res,
+                'fire_res': self.fire_res, 'frost_res': self.frost_res, 'isAlive': self.isAlive}
+
 
 class Ally(NonPlayer):
     def __init__(self, type, hp, dge, spd, phy_res, fire_res, frost_res, weapon, loot, ally_char):
@@ -85,3 +95,9 @@ class Ally(NonPlayer):
                 'fire_res': self.fire_res, 'frost_res': self.frost_res, 'weapon': self.weapon, 'loot': self.loot,
                 'ally_char': self.ally_char}
 
+    def toCombatJson(self):
+        return {'type': self.type, 'ally_char': self.ally_char, 'isAlive': self.isAlive}
+
+    def toStatsJson(self):
+        return {'type': self.type, 'hp': self.hp, 'dge': self.dge, 'spd': self.spd, 'phy_res': self.phy_res,
+                'fire_res': self.fire_res, 'frost_res': self.frost_res, 'isAlive': self.isAlive}

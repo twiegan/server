@@ -2,9 +2,9 @@ const infoArea = document.getElementById("info");
 
 // Info Screen Buttons
 function showInventory() {
-    fetch('/inventory', {
+    fetch('/info', {
         body: JSON.stringify({
-            info: "inventory"
+            info: "info/inventory"
         }),
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -38,12 +38,12 @@ function showInventory() {
             infoArea.innerHTML = table;
         }
     })
-}
+} // showInventory()
 
 function showMap() {
-   fetch('/map', {
+   fetch('/info', {
         body: JSON.stringify({
-            info: "map"
+            info: "info/map"
         }),
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -75,12 +75,12 @@ function showMap() {
             infoArea.innerHTML = table;
         }
    })
-}
+} // showMap()
 
 function showStats() {
-    fetch('/stats', {
+    fetch('/info', {
         body: JSON.stringify({
-            info: "stats"
+            info: "info/stats"
         }),
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -100,4 +100,4 @@ function showStats() {
             infoArea.innerHTML = table;
         }
     })
-}
+} // showStats()
