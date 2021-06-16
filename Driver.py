@@ -82,11 +82,26 @@ def create_tile(xpos, ypos, location, weight, type):
         return Grassland(xpos, ypos, location, weight)
 
 
+def get_equipment_json(player):
+    to_send = {'weapon': player.weapon.toJson(),
+               'armour': {}}
+    for i, item in enumerate(player.armour):
+        if player.armour[item] is not None:
+            to_send['armour'][item] = player.armour[item].toJson()
+        else:
+            to_send['armour'][item] = None
+    return to_send
+
+
 def get_inventory_json(player):
-    inventory = {}
+    to_send = {'player': {'name': player.name,
+                          'weight': player.weight,
+                          'money': player.money,
+                          'max_weight': MAX_WEIGHT},
+               'inventory': {}}
     for i, item in enumerate(player.inventory):
-        inventory[i] = item.toJson()
-    return json.dumps(inventory)
+        to_send['inventory'][i] = item.toJson()
+    return json.dumps(to_send)
 
 
 def get_map_json(map):
@@ -140,14 +155,21 @@ def initiate_combat(player, map):
                 enemies[f'enemy{i}'] = create_enemy(curr_enemy_type[0], 1, 1, 1, 1, 1, 1, create_weapon("testWeapon", 1, 1, 1, 'Knife'), create_weapon("testLoot", 1, 1, 1, 'Sword'))
             curr_combat['enemies'] = enemies
             """
-            curr_combat['enemies'] = {'enemy0': create_enemy('Bandit', 1, 3, 3, 3, 3, 3, create_weapon("testWeapon", 1, 1, 1, 'Knife'), create_weapon("testLoot", 1, 1, 1, 'Sword')),
-                                      'enemy1': create_enemy('Ogre', 1, 3, 3, 3, 3, 3, create_weapon("testWeapon", 1, 1, 1, 'Knife'), create_weapon("testLoot", 1, 1, 1, 'Sword')),
-                                      'enemy2': create_enemy('Goblin', 1, 3, 3, 3, 3, 3, create_weapon("testWeapon", 1, 1, 1, 'Knife'), create_weapon("testLoot", 1, 1, 1, 'Sword'))}
+            curr_combat['enemies'] = {
+                'enemy0': create_enemy('Bandit', 1, 3, 3, 3, 3, 3, create_weapon("testWeapon", 1, 1, 1, 'Knife'),
+                                       create_weapon("testLoot", 1, 1, 1, 'Sword')),
+                'enemy1': create_enemy('Ogre', 1, 3, 3, 3, 3, 3, create_weapon("testWeapon", 1, 1, 1, 'Knife'),
+                                       create_weapon("testLoot", 1, 1, 1, 'Sword')),
+                'enemy2': create_enemy('Goblin', 1, 3, 3, 3, 3, 3, create_weapon("testWeapon", 1, 1, 1, 'Knife'),
+                                       create_weapon("testLoot", 1, 1, 1, 'Sword'))}
 
             # allies
             curr_combat['num_allies'] = 2
-            curr_combat['allies'] = {'ally0': create_ally('Thomas', 10, 10, 10, 10, 10, 10, create_weapon("testWeapon", 1, 1, 1, 'Knife'), create_weapon("testLoot", 1, 1, 1, 'Sword')),
-                                     'ally1': create_ally('Joe', 10, 10, 10, 10, 10, 10, create_weapon("testWeapon", 1, 1, 1, 'Knife'), create_weapon("testLoot", 1, 1, 1, 'Sword'))}
+            curr_combat['allies'] = {
+                'ally0': create_ally('Thomas', 10, 10, 10, 10, 10, 10, create_weapon("testWeapon", 1, 1, 1, 'Knife'),
+                                     create_weapon("testLoot", 1, 1, 1, 'Sword')),
+                'ally1': create_ally('Joe', 10, 10, 10, 10, 10, 10, create_weapon("testWeapon", 1, 1, 1, 'Knife'),
+                                     create_weapon("testLoot", 1, 1, 1, 'Sword'))}
             return {'initiated': True}
     return {'initiated': False}
 
@@ -208,7 +230,8 @@ def calculate_combat(target_number):
         curr_combat['curr_attacker'] += 1
         if curr_combat['curr_attacker'] == 6:
             curr_combat['curr_attacker'] = 1
-    if not curr_combat['enemies']['enemy0'].isAlive and not curr_combat['enemies']['enemy1'].isAlive and not curr_combat['enemies']['enemy2'].isAlive:
+    if not curr_combat['enemies']['enemy0'].isAlive and not curr_combat['enemies']['enemy1'].isAlive and not \
+            curr_combat['enemies']['enemy2'].isAlive:
         won = True
     return {'calculated': True, 'won': won}
 
@@ -268,3 +291,22 @@ def get_move_json(direction, player, map):
         return json.dumps({'description': new_tile.description})
     else:
         return json.dumps({'description': new_tile.location.description})
+
+
+def equip_item(player, slot):
+    item = player.inventory.pop(slot)
+    if isinstance(item, Weapon):
+        if player.weapon is not None:
+            temp = player.weapon
+            player.inventory.append(temp)
+        player.weapon = item
+    elif isinstance(item, Armour):
+        if player.armour[item.slot] is not None:
+            temp = player.armour[item.slot]
+            player.inventory.append(temp)
+        player.armour[item.slot] = item
+    return {'equipped': item.toJson()}
+
+
+def drop_item(player, slot):
+    return {'dropped': player.inventory.pop(slot).toJson()}

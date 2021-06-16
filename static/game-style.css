@@ -20,9 +20,30 @@ td {
   text-align: center;
 }
 
-#main-holder {
-  min-width: 75%;
-  min-height: 85%;
+.flex-container {
+  min-width: 99%;
+  min-height: 90%;
+  display: flex;
+}
+
+.flex-child {
+  flex: 1;
+}
+
+#instructions-holder {
+  min-width: 15%;
+}
+
+#equipment-holder {
+  min-width: 15%;
+}
+
+#equipment {
+  text-align: center;
+}
+
+#content-holder {
+  min-width: 68%;
   justify-items: center;
   padding: 10px 10px 10px 10px;
   align-items: center;

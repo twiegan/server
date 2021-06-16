@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function() {
+  showEquipment();
+});
+
 document.addEventListener('keyup', function(e) {
     e.preventDefault();
     if (e.key === '1' || e.code === 'Digit1') { // ~~~COMBAT/LOCATION SCRIPTS~~~
@@ -66,5 +70,11 @@ document.addEventListener('keyup', function(e) {
     }
     else if (e.key === 's' || e.code === 'KeyS') {
         showStats();
+    }
+    else if ((e.key === 'd' || e.code === 'KeyD') && dEnabled) {
+        dropItem(showInventory);
+    }
+    else if ((e.key === 'e' || e.code === 'KeyE') && eEnabled) {
+        equipItem(showInventory, showEquipment);
     }
 });

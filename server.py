@@ -16,7 +16,7 @@ player = create_player(name="Test",
                                   create_armour("test50000", 15000, 3, 3, type='Breastplate')],
                        xpos=2,
                        ypos=1,
-                       weapon=create_weapon("TestPlayerWeapon", 500, 2, 2, type='Sword'))
+                       weapon=create_weapon("TestW", 500, 2, 2, type='Sword'))
 curr_map = create_map(rows=17, cols=25, player=player)
 
 
@@ -32,12 +32,18 @@ def game():
 def game_info():
     print(request.get_json())
     info_json = None
-    if request.get_json()['info'] == 'info/inventory':
+    if request.get_json()['info'] == 'info/equipment':
+        info_json = get_equipment_json(player)
+    elif request.get_json()['info'] == 'info/inventory':
         info_json = get_inventory_json(player)
     elif request.get_json()['info'] == 'info/map':
         info_json = get_map_json(curr_map)
     elif request.get_json()['info'] == 'info/stats':
         info_json = get_stats_json(player)
+    elif request.get_json()['info'] == 'info/drop':
+        info_json = drop_item(player, request.get_json()['slot'])
+    elif request.get_json()['info'] == 'info/equip':
+        info_json = equip_item(player, request.get_json()['slot'])
     return info_json
 
 

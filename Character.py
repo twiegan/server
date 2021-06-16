@@ -27,6 +27,13 @@ class Player(Character):
         self.ypos = ypos
         self.weapon = weapon
         self.team = {}
+        self.weight = 0
+        self.money = 0
+        self.armour = {'Head': None,
+                       'Chest': None,
+                       'Hands': None,
+                       'Legs': None,
+                       'Feet': None}
 
     def print_object(self):
         print(

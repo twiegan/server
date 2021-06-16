@@ -18,7 +18,8 @@ function moveNorth(callback, callback2, callback3) {
             console.log('moveNorth(): response', response);
             canMove = false;
             if (response.xpos === -1 && response.ypos === -1) {
-                textArea.innerHTML += 'Forbidden\n\n'
+                textArea.innerHTML += 'Forbidden\n\n';
+                canMove = true;
             } else {
                 textArea.innerHTML += 'Moved North...\n';
                 textArea.innerHTML += response.description + "\n\n";
@@ -46,7 +47,8 @@ function moveEast(callback, callback2, callback3) {
             console.log('moveEast(): response', response);
             canMove = false;
             if (response.xpos === -1 && response.ypos === -1) {
-                textArea.innerHTML += 'Forbidden\n\n'
+                textArea.innerHTML += 'Forbidden\n\n';
+                canMove = true;
             } else {
                 textArea.innerHTML += 'Moved East...\n';
                 textArea.innerHTML += response.description + "\n\n";
@@ -74,7 +76,8 @@ function moveSouth(callback, callback2, callback3) {
             console.log('moveSouth(): response', response);
             canMove = false;
             if (response.xpos === -1 && response.ypos === -1) {
-                textArea.innerHTML += 'Forbidden\n\n'
+                textArea.innerHTML += 'Forbidden\n\n';
+                canMove = true;
             } else {
                 textArea.innerHTML += 'Moved South...\n';
                 textArea.innerHTML += response.description + "\n\n";
@@ -102,7 +105,8 @@ function moveWest(callback, callback2, callback3) {
             console.log('moveWest(): response', response);
             canMove = false;
             if (response.xpos === -1 && response.ypos === -1) {
-                textArea.innerHTML += 'Forbidden\n\n'
+                textArea.innerHTML += 'Forbidden\n\n';
+                canMove = true;
             } else {
                 textArea.innerHTML += 'Moved West...\n';
                 textArea.innerHTML += response.description + "\n\n";

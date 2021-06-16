@@ -15,26 +15,40 @@
 
 <body>
 
-  <main id="main-holder">
-    <div id="content">
-      <div id="text">
-          <textarea id=text-area rows="25" cols="75" disabled="disabled" style="resize: none"></textarea>
+  <div class="flex-container">
+      <div class="flex-child" id="instructions-holder">
+        <div id="instructions">
+
+        </div>
       </div>
 
-      <div id="info">
+      <div class="flex-child" id="content-holder">
+        <div id="content">
+          <div id="text">
+              <textarea id=text-area rows="25" cols="65" disabled="disabled" style="resize: none"></textarea>
+          </div>
+
+          <div id="info">
+          </div>
+        </div>
+
+
+        <div id="combat">
+            <div id="combat-selection-1">
+            </div>
+            <div id="combat-view">
+            </div>
+            <div id="combat-selection-2">
+            </div>
+        </div>
       </div>
-    </div>
 
+      <div class="flex-child" id="equipment-holder">
+        <div id="equipment">
 
-    <div id="combat">
-        <div id="combat-selection-1">
         </div>
-        <div id="combat-view">
-        </div>
-        <div id="combat-selection-2">
-        </div>
-    </div>
-  </main>
+      </div>
+  </div>
 
 </body>
 </html>
