@@ -77,4 +77,10 @@ document.addEventListener('keyup', function(e) {
     else if ((e.key === 'e' || e.code === 'KeyE') && eEnabled) {
         equipItem(showInventory, showEquipment);
     }
+    else if ((e.key === 'r' || e.code === 'KeyR') && rEnabled) {
+        sellItem(showInventory, selectOption);
+    }
+    else if ((e.key === 'f' || e.code === 'KeyF') && fEnabled) {
+        buyItem(showInventory, selectOption);
+    }
 });

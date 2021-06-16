@@ -72,3 +72,10 @@ class Location:
             f'Name: {self.name}, Description: {self.description}, Loc_char: {self.loc_char}, Options:{self.options}\n'
         )
 
+
+class Market:
+    def __init__(self, wares):
+        self.wares = wares
+
+    def toJson(self):
+        return {'wares': [ob.toJson() for ob in self.wares]}

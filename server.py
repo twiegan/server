@@ -40,10 +40,12 @@ def game_info():
         info_json = get_map_json(curr_map)
     elif request.get_json()['info'] == 'info/stats':
         info_json = get_stats_json(player)
-    elif request.get_json()['info'] == 'info/drop':
+    elif request.get_json()['info'] == 'info/inventory/drop':
         info_json = drop_item(player, request.get_json()['slot'])
-    elif request.get_json()['info'] == 'info/equip':
+    elif request.get_json()['info'] == 'info/inventory/equip':
         info_json = equip_item(player, request.get_json()['slot'])
+    elif request.get_json()['info'] == 'info/inventory/sell':
+        info_json = sell_item(player, curr_map, request.get_json()['slot'])
     return info_json
 
 
@@ -72,6 +74,8 @@ def game_location():
         location_json = get_location_json(player, curr_map)
     elif request.get_json()['info'] == 'location/selectOption':
         location_json = get_location_json(player, curr_map)
+    elif request.get_json()['info'] == 'location/buy':
+        location_json = buy_item(player, curr_map, request.get_json()['slot'])
     return location_json
 
 

@@ -1,8 +1,17 @@
 const infoArea = document.getElementById("info");
 const equipmentArea = document.getElementById("equipment");
-var counter = 0;
+var invCounter = 0;
 var eEnabled = false;
 var dEnabled = false;
+var rEnabled = false;
+
+
+function setInventoryButtons(onOrOff) {
+    eEnabled = onOrOff;
+    dEnabled = onOrOff;
+    rEnabled = onOrOff;
+} // setInventoryButtons()
+
 
 function showEquipment() {
     fetch('/info', {
@@ -42,11 +51,9 @@ function showInventory() {
     }).then(response => response.json(), err => {throw err}).then(response => {
         console.log('showInventory(): response', response);
         if (Object.keys(response['inventory']).length === 0) {
-            eEnabled = false;
-            dEnabled = false;
+            setInventoryButtons(false);
         } else {
-            eEnabled = true;
-            dEnabled = true;
+            setInventoryButtons(true);
         }
         let table = '<table id="inventory-table"><thead><tr><th>'+response['player']['name']+'</th><th>$: '+response['player']['money']+'</th><th>Lbs: '+response['player']['weight']+'/'+response['player']['max_weight']+'</th></tr></thead>' +
         '<tbody><tr><td></td><td>Value</td><td>Durability</td><td>Type</td><td>Damage</td><td>Defense</td></tr>';
@@ -69,11 +76,11 @@ function showInventory() {
         }
         infoArea.innerHTML = table;
         if (Object.keys(response['inventory']).length !== 0) {
-            if (counter === Object.keys(response['inventory']).length) {
-                counter = 0;
+            if (invCounter === Object.keys(response['inventory']).length) {
+                invCounter = 0;
             }
-            counter++;
-            document.getElementById("inventory-table").tBodies[0].rows[counter].style.color = "red";
+            invCounter++;
+            document.getElementById("inventory-table").tBodies[0].rows[invCounter].style.color = "red";
         }
     })
 } // showInventory()
@@ -90,8 +97,7 @@ function showMap() {
         method: 'post'
    }).then(response => response.json(), err => {throw err}).then(response => {
         console.log('showMap(): response', response);
-        eEnabled = false;
-        dEnabled = false;
+        setInventoryButtons(false);
         let table = '<table><tbody>';
         for (let i in response.curr_map) {
             table += '<tr>';
@@ -125,8 +131,7 @@ function showStats() {
         method: 'post'
     }).then(response => response.json(), err => {throw err}).then(response => {
         console.log('showStats(): response', response);
-        eEnabled = false;
-        dEnabled = false;
+        setInventoryButtons(false);
         let table = '<table>';
         table += '<tbody>';
         for (let i in response) {
@@ -139,8 +144,8 @@ function showStats() {
 function dropItem(callback) {
     fetch('/info', {
         body: JSON.stringify({
-            info: "info/drop",
-            slot: counter - 1
+            info: "info/inventory/drop",
+            slot: invCounter - 1
         }),
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -149,7 +154,7 @@ function dropItem(callback) {
         method: 'post'
     }).then(response => response.json(), err => {throw err}).then(response => {
         console.log('dropItem(): response', response);
-        counter--;
+        invCounter--;
         callback();
     })
 } // dropItem()
@@ -157,8 +162,8 @@ function dropItem(callback) {
 function equipItem(callback, callback2) {
     fetch('/info', {
         body: JSON.stringify({
-            info: "info/equip",
-            slot: counter - 1
+            info: "info/inventory/equip",
+            slot: invCounter - 1
         }),
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -167,8 +172,27 @@ function equipItem(callback, callback2) {
         method: 'post'
     }).then(response => response.json(), err => {throw err}).then(response => {
         console.log('equipItem(): response', response);
-        counter--;
+        invCounter--;
         callback();
         callback2();
     })
 } // equipItem()
+
+function sellItem(callback, callback2) {
+    fetch('/info', {
+        body: JSON.stringify({
+            info: "info/inventory/sell",
+            slot: invCounter - 1
+        }),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        method: 'post'
+    }).then(response => response.json(), err => {throw err}).then(response => {
+        console.log('sellItem(): response', response);
+        invCounter--;
+        callback();
+        callback2(1);
+    })
+} // sellItem()

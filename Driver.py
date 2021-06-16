@@ -2,7 +2,7 @@ import json
 import random
 
 from Character import Player
-from Map import Map
+from Map import Map, Market
 from ListItem import *
 from ListLocation import *
 from ListTile import *
@@ -66,7 +66,9 @@ def create_map(rows, cols, player):
             else:
                 tile = create_tile(xpos=j, ypos=i, location=None, weight=DESERT_WEIGHT, type='Desert')
             if j == 0 and i == 0:
-                tile.location = Town()
+                tile.location = Town(market=Market(wares=[create_weapon("Market1", 250, 10, 10, "Bow"),
+                                                          create_weapon("Market2", 750, 4, 4, "Sword"),
+                                                          create_armour("Market3", 500, 6, 6, "Boots")]))
             if j == 0 and i == 1:
                 tile.location = City()
             curr_row.append(tile)
@@ -310,3 +312,19 @@ def equip_item(player, slot):
 
 def drop_item(player, slot):
     return {'dropped': player.inventory.pop(slot).toJson()}
+
+
+def sell_item(player, map, slot):
+    curr_tile = map.map[player.ypos][player.xpos]
+    item = player.inventory.pop(slot)
+    player.money += item.value
+    curr_tile.location.market.wares.append(item)
+    return {'sold': item.toJson()}
+
+
+def buy_item(player, map, slot):
+    curr_tile = map.map[player.ypos][player.xpos]
+    item = curr_tile.location.market.wares.pop(slot)
+    player.money -= item.value
+    player.inventory.append(item)
+    return {'bought': item.toJson()}
