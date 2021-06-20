@@ -7,6 +7,7 @@ class Character:
         self.phy_res = phy_res
         self.fire_res = fire_res
         self.frost_res = frost_res
+        self.max_hp = hp
         self.isAlive = True
 
     def print_object(self):
@@ -34,6 +35,7 @@ class Player(Character):
                        'Hands': None,
                        'Legs': None,
                        'Feet': None}
+        self.quests = {}
 
     def print_object(self):
         print(

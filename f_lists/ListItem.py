@@ -1,4 +1,4 @@
-from Item import Weapon, Armour
+from f_core.Item import Weapon, Armour
 
 
 # Weapons

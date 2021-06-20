@@ -1,4 +1,4 @@
-from Character import Enemy
+from f_core.Character import Enemy
 
 
 class Bandit(Enemy):

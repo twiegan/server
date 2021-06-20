@@ -49,7 +49,11 @@ function selectOption(digit) {
         console.log('selectOption(): response', response);
 
         if (response.content.name === 'Town') {
-            if (digit === 1) { // Market
+            if (digit === 1) { // Leave
+                view.innerHTML = "Now leaving"
+                canMove = true;
+            }
+            else if (digit === 2) { // Market
                 if (Object.keys(response.content.market.wares).length === 0) {
                     fEnabled = false;
                 } else {
@@ -69,17 +73,20 @@ function selectOption(digit) {
                     document.getElementById("market-table").tBodies[0].rows[locCounter].style.color = "red";
                     locCounter++;
                 }
-            } else if (digit === 2) { // Leave
-                view.innerHTML = "Now leaving"
-                canMove = true;
+            }
+            else if (digit === 3) { // Heal
+                view.innerHTML = "Healing..."
+                healPlayer();
             }
             // other town specific options you want here...
         } else if (response.content.name === 'City') {
-            if (digit === 1) {
-                view.innerHTML = "Now looting"
-            } else if (digit === 2) {
+            if (digit === 1) { // Leave
                 view.innerHTML = "Now leaving"
                 canMove = true;
+            }
+            else if (digit === 2) { // Heal
+                view.innerHTML = "Healing..."
+                healPlayer();
             }
             // other city specific options you want here...
         }
@@ -102,6 +109,21 @@ function buyItem(callback, callback2) {
         console.log('buyItem(): response', response);
         invCounter--;
         callback();
-        callback2(1);
+        callback2(2);
+    })
+}
+
+function healPlayer() {
+    fetch('/location', {
+        body: JSON.stringify({
+            info: "location/heal"
+        }),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        method: 'post'
+    }).then(response => response.json(), err => {throw err}).then(response => {
+        console.log('healPlayer(): response', response);
     })
 }

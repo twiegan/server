@@ -1,4 +1,4 @@
-from Constants import PLAYER_CHAR, UNDISCOVERED_CHAR
+from f_core.Constants import PLAYER_CHAR, UNDISCOVERED_CHAR
 
 
 class Map:

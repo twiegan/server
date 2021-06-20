@@ -1,4 +1,4 @@
-from Map import Tile
+from f_core.Map import Tile
 
 
 class ErrorTile(Tile):

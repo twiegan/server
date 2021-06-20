@@ -1,4 +1,4 @@
-from Map import Location
+from f_core.Map import Location
 
 
 class Town(Location):
@@ -6,7 +6,7 @@ class Town(Location):
         super().__init__(name="Town",
                          description="Town description...",
                          loc_char="T",
-                         options=["Market", "Leave"])
+                         options=["Leave", "Market", "Heal"])
         self.market = market
 
     def toJson(self):
@@ -19,7 +19,7 @@ class City(Location):
         super().__init__(name="City",
                          description="City description...",
                          loc_char="C",
-                         options=["Loot the City", "Leave"])
+                         options=["Leave", "Heal"])
 
     def toJson(self):
         return {'name': self.name, 'description': self.description, 'loc_char': self.loc_char,

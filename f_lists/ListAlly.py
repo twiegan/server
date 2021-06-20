@@ -1,4 +1,4 @@
-from Character import Ally
+from f_core.Character import Ally
 
 
 class Thomas(Ally):

@@ -193,6 +193,6 @@ function sellItem(callback, callback2) {
         console.log('sellItem(): response', response);
         invCounter--;
         callback();
-        callback2(1);
+        callback2(2);
     })
 } // sellItem()

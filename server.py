@@ -1,6 +1,9 @@
 import flask as fs
 from flask import request
-from Driver import *
+from f_drivers.DriverCombat import *
+from f_drivers.DriverInfo import *
+from f_drivers.DriverLocation import *
+from f_drivers.DriverMove import *
 
 player = create_player(name="Test",
                        hp=25,
@@ -76,6 +79,8 @@ def game_location():
         location_json = get_location_json(player, curr_map)
     elif request.get_json()['info'] == 'location/buy':
         location_json = buy_item(player, curr_map, request.get_json()['slot'])
+    elif request.get_json()['info'] == 'location/heal':
+        location_json = heal_player(player)
     return location_json
 
 
